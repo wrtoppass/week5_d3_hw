@@ -45,7 +45,7 @@ HAVING count(payment.staff_id)=(
 		SELECT payment.staff_id, count(payment.staff_id) my_count 
 		FROM payment
 		GROUP BY payment.staff_id
-	) innermostQueryCall
+	) 
 );
 
 -- 6 how many movies of each rating are there?
@@ -59,16 +59,16 @@ FROM customer
 WHERE customer_id in(
 	SELECT customer_id 
 	from(
-		SELECT customer_id, sum(raw_count) AS count_over_threshold
+		SELECT customer_id, sum(raw_count) AS count_over
 		from(
 			SELECT customer_id, amount, count(amount) AS raw_count
 			FROM payment 
 			GROUP BY amount, customer_id
 			HAVING amount > 6.99
-		) innerMostQueryCall
+		) 
 		GROUP BY customer_id
-	) middleQueryCall
-	WHERE count_over_threshold = 1
+	) 
+	WHERE count_over = 1
 );
 
 -- 8 how many free rentals are there?
